@@ -124,3 +124,15 @@ Troubleshooting / Service Logs
 ```bash
 journalctl -u heikodiscopi.service -b -n 200 --no-pager
 ```
+
+
+# ToDos:
+
+- [ ] Set volume on system boot to 85% 
+  ```bash
+  wpctl set-volume -l 0.85 @DEFAULT_AUDIO_SINK@ 0.85
+  ```
+- [ ] Implement learning mode for zigbee database
+- [ ] Implement pre-warm phase: emergency light before disco light
+- [ ] Set correct config and values in Debian package
+- [ ] Make system processes non-parallel (avoid double play)
