@@ -4,6 +4,7 @@ import argparse
 import asyncio
 import logging
 import threading
+import time
 from typing import Optional
 
 from .audio import AudioPlayer
@@ -27,6 +28,7 @@ class DiscoApp:
         )
         self.outlet = ZigbeeOutlet(cfg.zigbee.outlet_ieee, cfg.zigbee.outlet_endpoint)
 
+        # mpv IPC-backed AudioPlayer (Option A)
         self.player = AudioPlayer(alsa_device=cfg.audio.alsa_device)
 
         self.library = MediaLibrary(
@@ -72,15 +74,39 @@ class DiscoApp:
         with self._lock:
             self._playing = True
 
+        playback_thread: Optional[threading.Thread] = None
+
         try:
             track = self.library.choose_random_track()
             logger.info("Selected track: %s", track)
 
-            # Zigbee ON (must execute on the main asyncio loop)
+            # Start playback in its own thread so we can wait for "started" and then toggle Zigbee ON
+            exc_holder: list[BaseException] = []
+
+            def _play() -> None:
+                try:
+                    self.player.play_blocking(str(track))
+                except BaseException as e:
+                    exc_holder.append(e)
+
+            playback_thread = threading.Thread(target=_play, daemon=True)
+            playback_thread.start()
+
+            # Wait until audio actually starts (mpv IPC) before turning the outlet ON
+            started = self.player.wait_until_started(timeout_s=5.0)
+            if started:
+                logger.info("Audio started; switching outlet ON")
+            else:
+                logger.warning("Audio start not confirmed within timeout; switching outlet ON anyway")
+
             self._zigbee_call(self.zb.set_onoff(self.outlet, True))
 
-            # Audio playback blocks only this worker thread
-            self.player.play_blocking(str(track))
+            # Wait for playback to finish
+            playback_thread.join()
+
+            # If playback thread failed, surface it
+            if exc_holder:
+                raise exc_holder[0]
 
         except Exception as e:
             logger.error("Disco run failed: %s", e, exc_info=True)
