@@ -1,0 +1,43 @@
+[project]
+name = "heikodiscopy"
+version = "0.1.0"
+description = "GPIO-triggered disco mode: Zigbee outlet ON + random music playback on Raspberry Pi."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Marian Weber" }]
+
+dependencies = [
+  "pydantic>=2.7",
+  "pydantic-settings>=2.3",
+  "tomlkit>=0.13",
+  "psutil>=5.9",
+  "python-vlc>=3.0.20",
+  "zigpy>=0.70.0",
+
+  # Choose ONE adapter depending on your dongle:
+  # For Sonoff ZBDongle-E (Silicon Labs EZSP): "bellows>=0.40"
+  # For TI CC2652 / Z-Stack:                 "zigpy-znp>=0.12"
+  # For ConBee / deCONZ:                     "zigpy-deconz>=0.24"
+  # For XBee:                                "zigpy-xbee>=0.20"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.6",
+  "mypy>=1.10",
+]
+
+[project.scripts]
+heikodiscopy = "heikodiscopy.main:cli"
+heikodiscopy-gpio = "heikodiscopy.utils.gpio_monitor:cli"
+heikodiscopy-zigbee = "heikodiscopy.utils.zigbee_tool:cli"
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
