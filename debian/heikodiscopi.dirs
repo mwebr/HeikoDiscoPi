@@ -1,0 +1,5 @@
+lib/systemd/system
+etc/default
+usr/lib/tmpfiles.d
+lib/udev/rules.d
+usr/lib/heikodiscopi
