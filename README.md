@@ -97,3 +97,30 @@ alsa_device = ""
 # "ignore" | "restart" | "stop"
 press_during_playback = "ignore"
 ```
+
+## Debian package
+
+Clean build and install
+
+```bash
+sudo dpkg --remove --force-remove-reinstreq heikodiscopi || true
+sudo dpkg --configure -a || true
+
+sudo rm -rf debian/heikodiscopi debian/tmp .pybuild dist build debian/.debhelper/ debian/debhelper-build-stamp debian/files debian/heikodiscopi.postinst.debhelper debian/heikodiscopi.postrm.debhelper debian/heikodiscopi.prerm.debhelper debian/heikodiscopi.substvars
+
+dpkg-buildpackage -us -uc -b
+
+install -m 0644 ../heikodiscopi_*.deb /tmp/
+sudo apt install /tmp/heikodiscopi_*.deb
+
+sudo systemctl daemon-reload
+sudo systemctl restart heikodiscopi.service
+sudo systemctl status heikodiscopi.service
+```
+
+
+Troubleshooting / Service Logs
+
+```bash
+journalctl -u heikodiscopi.service -b -n 200 --no-pager
+```

@@ -10,10 +10,8 @@ override_dh_auto_build:
 
 override_dh_auto_install:
 	python3 -m installer --destdir=debian/heikodiscopi --prefix=/usr dist/*.whl
-	# Debian packages must not ship anything under /usr/local.
-	# Some Python sysconfig schemes default scripts to /usr/local/bin, so relocate.
-	if [ -d debian/heikodiscopi/usr/local/bin ]; then \
-		mkdir -p debian/heikodiscopi/usr/bin; \
-		mv debian/heikodiscopi/usr/local/bin/* debian/heikodiscopi/usr/bin/ || true; \
+	if [ -d debian/heikodiscopi/usr/local ]; then \
+		mkdir -p debian/heikodiscopi/usr; \
+		cp -a debian/heikodiscopi/usr/local/* debian/heikodiscopi/usr/; \
+		rm -rf debian/heikodiscopi/usr/local; \
 	fi
-	rm -rf debian/heikodiscopi/usr/local

@@ -220,3 +220,15 @@ config.toml
 *.db
 *.db-shm
 *.db-wal
+
+# Debian packaging
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/files
+debian/heikodiscopi.postinst.debhelper
+debian/heikodiscopi.postrm.debhelper
+debian/heikodiscopi.prerm.debhelper
+debian/heikodiscopi.substvars
+debian/heikodiscopi/
+debian/heikodiscopi
+debian/tmp
