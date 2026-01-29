@@ -1,6 +1,6 @@
-# HeikoDiscoPy
+# Heikodiscopi
 
-**HeikoDiscoPy** is a Raspberry Pi “Disco Mode” trigger that listens to a wired emergency button on GPIO and, on press, turns on an IKEA Zigbee power outlet (“fuse”) via a Zigbee USB dongle and plays a random audio track until it ends. It supports USB-stick hot-plug (auto-mount + on-the-fly media discovery), local media folders, a single config file for GPIO/Zigbee/audio settings, boot-on-start via systemd, plus two debug utilities (GPIO digital readout + Zigbee scanner/tester). Built as a Python package and also as a `.deb`, with dependency management using **pyproject.toml + uv** and a GitHub Actions build pipeline. Licensed under **MIT**.
+**Heikodiscopi** is a Raspberry Pi “Disco Mode” trigger that listens to a wired emergency button on GPIO and, on press, turns on an IKEA Zigbee power outlet (“fuse”) via a Zigbee USB dongle and plays a random audio track until it ends. It supports USB-stick hot-plug (auto-mount + on-the-fly media discovery), local media folders, a single config file for GPIO/Zigbee/audio settings, boot-on-start via systemd, plus two debug utilities (GPIO digital readout + Zigbee scanner/tester). Built as a Python package and also as a `.deb`, with dependency management using **pyproject.toml + uv** and a GitHub Actions build pipeline. Licensed under **MIT**.
 
 ---
 
@@ -32,13 +32,13 @@ Disco Mode for Raspberry Pi:
 ## Install (dev)
 ```bash
 uv sync --dev
-uv run heikodiscopy --config /etc/heikodiscopy/config.toml
+uv run heikodiscopi --config /etc/heikodiscopi/config.toml
 ````
 
 ## Install (system)
 
 * Build wheel or .deb locally or get it from the package registry.
-* Enable systemd service: `sudo systemctl enable --now heikodiscopy`
+* Enable systemd service: `sudo systemctl enable --now heikodiscopi`
 
 ## Pairing Zigbee
 
@@ -46,8 +46,8 @@ Pair your IKEA outlet with the coordinator once, then set its IEEE / NWK address
 Use:
 
 ```bash
-uv run heikodiscopy-zigbee --config ./config.toml scan
-uv run heikodiscopy-zigbee --config ./config.toml test --on
+uv run heikodiscopi-zigbee --config ./config.toml scan
+uv run heikodiscopi-zigbee --config ./config.toml test --on
 ```
 
 ## Config
@@ -79,7 +79,7 @@ usb_autodetect = true
 usb_mount_roots = ["/media", "/mnt"]
 
 # Local fallback folders (can be empty):
-local_folders = ["/home/pi/Music", "/opt/heikodiscopy/music"]
+local_folders = ["/home/pi/Music", "/opt/heikodiscopi/music"]
 
 # When both USB + local available:
 # "random" -> randomly pick a source each trigger

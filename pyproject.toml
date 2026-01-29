@@ -1,5 +1,5 @@
 [project]
-name = "heikodiscopy"
+name = "heikodiscopi"
 version = "0.1.0"
 description = "GPIO-triggered disco mode: Zigbee outlet ON + random music playback on Raspberry Pi."
 readme = "README.md"
@@ -30,9 +30,9 @@ dev = [
 ]
 
 [project.scripts]
-heikodiscopy = "heikodiscopy.main:cli"
-heikodiscopy-gpio = "heikodiscopy.utils.gpio_monitor:cli"
-heikodiscopy-zigbee = "heikodiscopy.utils.zigbee_tool:cli"
+heikodiscopi = "heikodiscopi.main:cli"
+heikodiscopi-gpio = "heikodiscopi.utils.gpio_monitor:cli"
+heikodiscopi-zigbee = "heikodiscopi.utils.zigbee_tool:cli"
 
 [build-system]
 requires = ["hatchling>=1.25"]
