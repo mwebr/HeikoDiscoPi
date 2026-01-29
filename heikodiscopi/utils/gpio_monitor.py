@@ -11,7 +11,7 @@ except ImportError:
 def cli() -> None:
     ap = argparse.ArgumentParser(description="GPIO digital read-out helper")
     ap.add_argument("--pin", type=int, required=True)
-    ap.add_argument("--pull", choices=["up", "down"], default="up")
+    ap.add_argument("--pull", choices=["up", "down", "none"], default="none")
     args = ap.parse_args()
 
     if GPIO is None:

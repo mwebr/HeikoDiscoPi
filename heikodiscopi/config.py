@@ -7,7 +7,7 @@ from typing import Literal
 
 class GPIOConfig(BaseModel):
     button_pin: int = 17
-    pull: Literal["up", "down"] = "up"
+    pull: Literal["up", "down", "none"] = "none"
     debounce_ms: int = 80
 
 

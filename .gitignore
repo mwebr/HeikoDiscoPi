@@ -217,4 +217,6 @@ __marimo__/
 
 # HeikoDiscoPi
 config.toml
-zigbee.db
+*.db
+*.db-shm
+*.db-wal
