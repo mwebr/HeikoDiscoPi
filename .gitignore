@@ -214,4 +214,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# HeikoDiscoPi
 config.toml
+zigbee.db

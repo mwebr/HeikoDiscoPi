@@ -14,6 +14,8 @@ dependencies = [
   "psutil>=5.9",
   "python-vlc>=3.0.20",
   "zigpy>=0.70.0",
+  "zigpy-znp>=0.12",
+  "RPi.GPIO>=0.7.1"
 
   # Choose ONE adapter depending on your dongle:
   # For Sonoff ZBDongle-E (Silicon Labs EZSP): "bellows>=0.40"
