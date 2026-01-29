@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint-test-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Sync deps
+        run: uv sync --dev
+
+      - name: Lint (ruff)
+        run: uv run ruff check .
+
+      - name: Tests
+        run: uv run pytest -q
+
+      - name: Build wheel/sdist
+        run: uv build
+
+      - name: Upload dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-dist
+          path: dist/*
+
+  build-deb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y debhelper dh-python python3-all python3-build dpkg-dev fakeroot
+
+      - name: Build deb
+        run: |
+          dpkg-buildpackage -us -uc -b
+
+      - name: Upload deb
+        uses: actions/upload-artifact@v4
+        with:
+          name: debian-package
+          path: ../*.deb

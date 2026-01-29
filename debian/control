@@ -1,0 +1,13 @@
+Source: heikodiscopi
+Section: utils
+Priority: optional
+Maintainer: Marian Weber <mwebr@users.noreply.github.com>
+Build-Depends: debhelper-compat (= 13), dh-python, python3-all, python3-setuptools
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: heikodiscopi
+Architecture: all
+Depends: ${python3:Depends}, ${misc:Depends}, vlc
+Description: GPIO-triggered disco mode (Zigbee outlet + random audio)
+ HeikoDiscoPi listens to a GPIO emergency button and triggers Zigbee outlet + random music playback.
