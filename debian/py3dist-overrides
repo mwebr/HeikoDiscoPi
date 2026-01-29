@@ -1,0 +1,9 @@
+rpi_gpio python3-rpi.gpio
+rpi-gpio python3-rpi.gpio
+RPi.GPIO python3-rpi.gpio
+
+zigpy python3-zigpy
+zigpy-znp python3-zigpy-znp
+
+gpiozero python3-gpiozero
+psutil python3-psutil

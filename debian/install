@@ -1,1 +1,10 @@
-systemd/heikodiscopi.service  lib/systemd/system/
+
+config.toml                              etc/heikodiscopi/config.toml
+debian/heikodiscopi.service              lib/systemd/system/
+debian/packaging/heikodiscopi            etc/default/
+debian/packaging/heikodiscopi.conf       usr/lib/tmpfiles.d/
+
+debian/99-heikodiscopi-usb.rules         lib/udev/rules.d/
+debian/heikodiscopi-usb-mount@.service   lib/systemd/system/
+debian/heikodiscopi-usb-umount@.service  lib/systemd/system/
+debian/usb_mount.sh                      usr/lib/heikodiscopi/usb_mount.sh

@@ -1,0 +1,7 @@
+[Unit]
+Description=HeikoDiscoPi USB mount for %I
+After=systemd-udevd.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/heikodiscopi/usb_mount.sh add %I

@@ -1,0 +1,11 @@
+#!/bin/sh
+set -eu
+
+case "$1" in
+  remove|deconfigure)
+    systemctl stop heikodiscopi.service || true
+    systemctl disable heikodiscopi.service || true
+    ;;
+esac
+
+exit 0

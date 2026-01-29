@@ -1,0 +1,25 @@
+#!/bin/sh
+set -eu
+
+case "$1" in
+  configure)
+    # Create system user/group if missing
+    if ! getent passwd heikodiscopi >/dev/null; then
+      adduser --system --group --home /var/lib/heikodiscopi --no-create-home heikodiscopi
+    fi
+
+    # Ensure runtime directories exist
+    mkdir -p /var/lib/heikodiscopi /mnt/heikodiscopi-usb /etc/heikodiscopi
+    chown -R heikodiscopi:heikodiscopi /var/lib/heikodiscopi
+
+    # Reload udev rules (USB automount)
+    udevadm control --reload-rules || true
+    udevadm trigger --subsystem-match=block || true
+
+    # Enable + start service
+    systemctl daemon-reload || true
+    systemctl enable --now heikodiscopi.service || true
+    ;;
+esac
+
+exit 0

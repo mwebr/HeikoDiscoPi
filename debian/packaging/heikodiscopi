@@ -1,0 +1,2 @@
+# Default config path
+HEIKODISCOPI_CONFIG=/etc/heikodiscopi/config.toml
